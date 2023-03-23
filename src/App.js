@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDrag } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "normalize.css";
 import "./style/app.css";
@@ -135,86 +135,95 @@ function App() {
   };
 
   // drag item
-  // const ItemTypes = {
-  //   CALCULATOR: "calculator",
-  // };
+  const ItemTypes = {
+    CALCULATOR: "calculator",
+  };
 
-  // const [{}, dragRef] = useDrag({ item: { type: ItemTypes.CALCULATOR } });
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: ItemTypes.CALCULATOR,
+  }));
+
+  const [, drop] = useDrop(() => ({
+    accept: ItemTypes.CALCULATOR,
+    drop: (item) => {
+      console.log("drop!");
+    },
+  }));
 
   return (
-    // <DndProvider backend={HTML5Backend}>
-    <div className="calculator">
-      <div className="showArea">
-        <input
-          type="text"
-          placeholder="計算結果"
-          value={result}
-          readOnly
-        ></input>
-        <input
-          className="calculation"
-          type="text"
-          placeholder="算式"
-          value={calculation}
-          readOnly
-        ></input>
-      </div>
-      <div className="functionalButton">
-        <button
-          onClick={() => {
-            updateCalculation("+");
-          }}
-        >
-          +
-        </button>
-        <button
-          onClick={() => {
-            updateCalculation("-");
-          }}
-        >
-          -
-        </button>
-        <button
-          onClick={() => {
-            updateCalculation("×");
-          }}
-        >
-          ×
-        </button>
-        <button
-          onClick={() => {
-            updateCalculation("÷");
-          }}
-        >
-          ÷
-        </button>
-        <button
-          onClick={() => {
-            clear();
-          }}
-        >
-          AC
-        </button>
-      </div>
-      <div className="numberButton">
-        {createDigitBtn()}
-        <button
-          onClick={() => {
-            updateCalculation(".");
-          }}
-        >
-          .
-        </button>
-        <button
-          onClick={() => {
-            toPostfix(calculation);
-          }}
-        >
-          =
-        </button>
+    <div className="background" ref={drop}>
+      <div className="calculator" ref={dragRef}>
+        <div className="showArea">
+          <input
+            type="text"
+            placeholder="計算結果"
+            value={result}
+            readOnly
+          ></input>
+          <input
+            className="calculation"
+            type="text"
+            placeholder="算式"
+            value={calculation}
+            readOnly
+          ></input>
+        </div>
+        <div className="functionalButton">
+          <button
+            onClick={() => {
+              updateCalculation("+");
+            }}
+          >
+            +
+          </button>
+          <button
+            onClick={() => {
+              updateCalculation("-");
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={() => {
+              updateCalculation("×");
+            }}
+          >
+            ×
+          </button>
+          <button
+            onClick={() => {
+              updateCalculation("÷");
+            }}
+          >
+            ÷
+          </button>
+          <button
+            onClick={() => {
+              clear();
+            }}
+          >
+            AC
+          </button>
+        </div>
+        <div className="numberButton">
+          {createDigitBtn()}
+          <button
+            onClick={() => {
+              updateCalculation(".");
+            }}
+          >
+            .
+          </button>
+          <button
+            onClick={() => {
+              toPostfix(calculation);
+            }}
+          >
+            =
+          </button>
+        </div>
       </div>
     </div>
-    // </DndProvider>
   );
 }
 
