@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   font-size: 30px;
+  position: absolute;
 }
 
 .showArea {
@@ -103,5 +104,6 @@
 @media screen and (min-width: 1025px) {
   .calculator {
     background-color: brown;
+    position: absolute;
   }
 }

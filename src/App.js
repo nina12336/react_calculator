@@ -7,6 +7,8 @@ import "./style/app.css";
 function App() {
   const [calculation, setCalculation] = useState("");
   const [result, setResult] = useState("");
+  const [offsetX, setOffsetX] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
 
   const updateCalculation = (value) => {
     setCalculation(calculation + value);
@@ -137,18 +139,59 @@ function App() {
   // drag item
   const ItemTypes = {
     CALCULATOR: "calculator",
+    // BACKGROUND: "background",
   };
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CALCULATOR,
+    end(item, monitor) {
+      let top = 0,
+        left = 0;
+      if (monitor.didDrop()) {
+        const dropRes = monitor.getDropResult();
+        console.log(dropRes);
+        if (dropRes) {
+          top = dropRes.top;
+          left = dropRes.left;
+        }
+        setOffsetX((offsetX) => offsetX + left);
+        setOffsetY((offsetY) => offsetY + top);
+        console.log("offsetX:", offsetX);
+        console.log("offsetY:", offsetY);
+      } else {
+        setOffsetX(0);
+        setOffsetY(0);
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
   }));
 
-  const [, drop] = useDrop(() => ({
-    accept: ItemTypes.CALCULATOR,
-    drop: (item) => {
-      console.log("drop!");
-    },
-  }));
+  const [{ isOver, conDrop }, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.CALCULATOR,
+      // accept: ItemTypes.BACKGROUND,
+      drop: (item, monitor) => {
+        const delta = monitor.getDifferenceFromInitialOffset();
+        const left = Math.round(delta.x);
+        const top = Math.round(delta.y);
+        return { top, left };
+      },
+      canDrop: (_item, monitor) => {
+        const item = monitor.getItem();
+        return item.type === ItemTypes.CALCULATOR;
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
+      // console.log("drop!");
+      // console.log("begin:", monitor.getInitialClientOffset());
+      // console.log("end:", monitor.getClientOffset());
+    }),
+    []
+  );
 
   return (
     <div className="background" ref={drop}>
