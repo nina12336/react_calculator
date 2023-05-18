@@ -14,7 +14,7 @@ function App() {
     setCalculation(calculation + value);
     console.log(calculation);
   };
-
+  //清除鍵功能
   const clear = () => {
     setResult("");
     setCalculation("");
@@ -145,57 +145,70 @@ function App() {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CALCULATOR,
     end(item, monitor) {
-      let top = 0,
-        left = 0;
-      if (monitor.didDrop()) {
-        const dropRes = monitor.getDropResult();
-        console.log(dropRes);
-        if (dropRes) {
-          top = dropRes.top;
-          left = dropRes.left;
-        }
-        setOffsetX((offsetX) => offsetX + left);
-        setOffsetY((offsetY) => offsetY + top);
-        console.log("offsetX:", offsetX);
-        console.log("offsetY:", offsetY);
-      } else {
-        setOffsetX(0);
-        setOffsetY(0);
-      }
+      monitor.getDropResult();
+      monitor.didDrop();
     },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
+    // end(item, monitor) {
+    //   let top = 0,
+    //     left = 0;
+    //   if (monitor.didDrop()) {
+    //     const dropRes = monitor.getDropResult();
+    //     console.log(dropRes);
+    //     if (dropRes) {
+    //       top = dropRes.top;
+    //       left = dropRes.left;
+    //     }
+    //     setOffsetX((offsetX) => offsetX + left);
+    //     setOffsetY((offsetY) => offsetY + top);
+    //     console.log("offsetX:", offsetX);
+    //     console.log("offsetY:", offsetY);
+    //   } else {
+    //     setOffsetX(0);
+    //     setOffsetY(0);
+    //   }
+    // },
+    // collect: (monitor) => ({
+    //   isDragging: !!monitor.isDragging(),
+    // }),
   }));
 
-  const [{ isOver, conDrop }, drop] = useDrop(
+  const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: ItemTypes.CALCULATOR,
-      // accept: ItemTypes.BACKGROUND,
-      drop: (item, monitor) => {
-        const delta = monitor.getDifferenceFromInitialOffset();
-        const left = Math.round(delta.x);
-        const top = Math.round(delta.y);
-        return { top, left };
-      },
-      canDrop: (_item, monitor) => {
-        const item = monitor.getItem();
-        return item.type === ItemTypes.CALCULATOR;
-      },
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop(),
+      drop: (item, monitor) => ({
+        top: monitor.getDifferenceFromInitialOffset().y,
+        left: monitor.getDifferenceFromInitialOffset().x,
       }),
-      // console.log("drop!");
-      // console.log("begin:", monitor.getInitialClientOffset());
-      // console.log("end:", monitor.getClientOffset());
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
+      // accept: ItemTypes.BACKGROUND,
+      // drop: (item, monitor) => {
+      //   const delta = monitor.getDifferenceFromInitialOffset();
+      //   const left = Math.round(delta.x);
+      //   const top = Math.round(delta.y);
+      //   return { top, left };
+      // },
+      // canDrop: (_item, monitor) => {
+      //   const item = monitor.getItem();
+      //   return item.type === ItemTypes.CALCULATOR;
+      // },
+      // collect: (monitor) => ({
+      //   isOver: !!monitor.isOver(),
+      //   canDrop: !!monitor.canDrop(),
+      // }),
     }),
     []
   );
 
   return (
     <div className="background" ref={drop}>
-      <div className="calculator" ref={dragRef}>
+      <div
+        className="calculator"
+        ref={dragRef}
+        style={{ top: `${drop.top}px`, left: `${drop.left}px` }}
+      >
         <div className="showArea">
           <input
             type="text"
