@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useDrop } from "react-dnd";
 
 function Background(props) {
-  // const [offsetX, setOffsetX] = useState(0);
-  // const [offsetY, setOffsetY] = useState(0);
   const [, drop] = useDrop(() => ({
-    accept: "dragablecal",
+    accept: "draggableCal",
     drop(item, monitor) {
       const top = monitor.getDifferenceFromInitialOffset().y;
       const left = monitor.getDifferenceFromInitialOffset().x;
@@ -14,7 +11,7 @@ function Background(props) {
   }));
 
   return (
-    <div className="background2" ref={drop}>
+    <div className="background" ref={drop}>
       {props.children}
     </div>
   );

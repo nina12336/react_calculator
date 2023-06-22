@@ -11,10 +11,10 @@ function Calculator() {
 
   //drag功能
   const [, drag] = useDrag({
-    type: "dragablecal",
+    type: "draggableCal",
     canDrag() {
-      const userDevice = isMobileDevice();
-      if (userDevice === false) {
+      const isPC = isMobileDevice();
+      if (isPC === false) {
         return true;
       } else {
         return false;
@@ -23,15 +23,8 @@ function Calculator() {
     end(item, monitor) {
       if (monitor.didDrop()) {
         const dropRes = monitor.getDropResult();
-        // console.log("dropResTop:", dropRes.top);
-        // console.log("dropResLeft:", dropRes.left);
         setOffsetY(() => offsetY + dropRes.top);
         setOffsetX(() => offsetX + dropRes.left);
-        // console.log("offsetY:", offsetY);
-        // console.log("offsetX:", offsetX);
-      } else {
-        setOffsetY(0);
-        setOffsetX(0);
       }
     },
   });
@@ -82,7 +75,6 @@ function Calculator() {
     let numberArr = [];
     let operatorArr = [];
     let calculationArr = str.match(/[0-9.]+[0-9]+|[\+\-\×\÷]|\d+/g);
-    // console.log(calculationArr);
     calculationArr.forEach((target) => {
       if ("+-×÷".indexOf(target) === -1) {
         numberArr.push(target);
@@ -101,7 +93,6 @@ function Calculator() {
     }
     console.log("numberArr", numberArr);
     console.log("operatorArr", operatorArr);
-    // return numberArr;
     return postfixCal(numberArr);
   };
 
@@ -247,6 +238,7 @@ function Calculator() {
           .
         </button>
         <button
+          className="equalButton"
           onClick={() => {
             toPostfix(calculation);
           }}
@@ -255,12 +247,6 @@ function Calculator() {
         </button>
       </div>
     </div>
-
-    // <div
-    //   className="calculator2"
-    //   ref={drag}
-    //   style={{ top: `${offsetY}px`, left: `${offsetX}px` }}
-    // ></div>
   );
 }
 export default Calculator;
