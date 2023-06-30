@@ -1,71 +1,24 @@
-# Getting Started with Create React App
+# Calculator
+使用React製作計算機
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[計算機線上展示連結](https://nina12336.github.io/react_calculator/)
 
-## Available Scripts
+電腦版畫面：
 
-In the project directory, you can run:
+<img src="https://github.com/nina12336/react_calculator/blob/main/read%20me_photo/%E9%9B%BB%E8%85%A6%E7%89%88%E7%95%AB%E9%9D%A2.png?raw=true"  width="500px" />
 
-### `yarn start`
+手機版畫面：
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img src="https://github.com/nina12336/react_calculator/blob/main/read%20me_photo/%E6%89%8B%E6%A9%9F%E7%89%88%E7%95%AB%E9%9D%A2.png"  width="500px" />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 關於這個專案
 
-### `yarn test`
+**技術棧**
+- React
+- JSX
+- React DnD
+- SCSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# react_calculator
+**特殊的元素**
+- 具RWD功能，判別使用者裝置呈現相對應版面配置及顏色。如為裝置為電腦時計算機則可拖曳，使用套件`React DnD`達成此功能；如為裝置為手機時計算機的高度為畫面50%，超出的範圍則可使用scroll功能(使用`overflow`)。
+- 
