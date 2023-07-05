@@ -211,14 +211,14 @@ function Calculator() {
             updateCalculation("*");
           }}
         >
-          ×
+          *{/* × */}
         </button>
         <button
           onClick={() => {
             updateCalculation("/");
           }}
         >
-          ÷
+          /{/* ÷ */}
         </button>
         <button
           onClick={() => {
