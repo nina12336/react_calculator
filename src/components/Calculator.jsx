@@ -63,7 +63,7 @@ function Calculator() {
     if (target === "+" || target === "-") {
       return 1;
     }
-    if (target === "×" || target === "÷") {
+    if (target === "*" || target === "/") {
       return 2;
     } else {
       return 0;
@@ -74,9 +74,9 @@ function Calculator() {
   const toPostfix = (str) => {
     let numberArr = [];
     let operatorArr = [];
-    let calculationArr = str.match(/[0-9.]+[0-9]+|[\+\-\×\÷]|\d+/g);
+    let calculationArr = str.match(/[0-9.]+[0-9]+|[\+\-\*\/]|\d+/g);
     calculationArr.forEach((target) => {
-      if ("+-×÷".indexOf(target) === -1) {
+      if ("+-*/".indexOf(target) === -1) {
         numberArr.push(target);
       } else {
         while (
@@ -100,7 +100,7 @@ function Calculator() {
   const postfixCal = (postfix) => {
     let stack = [];
     postfix.forEach((el) => {
-      if ("+-×÷".indexOf(el) === -1) {
+      if ("+-*/".indexOf(el) === -1) {
         stack.push(el);
       } else {
         const last = Number(stack.pop());
@@ -115,12 +115,12 @@ function Calculator() {
             cal = preciseCal(penultimate, last, "-");
             stack.push(cal);
             break;
-          case "×":
-            cal = preciseCal(last, penultimate, "×");
+          case "*":
+            cal = preciseCal(last, penultimate, "*");
             stack.push(cal);
             break;
-          case "÷":
-            cal = preciseCal(penultimate, last, "÷");
+          case "/":
+            cal = preciseCal(penultimate, last, "/");
             stack.push(cal);
             break;
           default:
@@ -141,9 +141,9 @@ function Calculator() {
         return (arg1 * baseNum + arg2 * baseNum) / baseNum;
       case "-":
         return (arg1 * baseNum - arg2 * baseNum) / baseNum;
-      case "×":
+      case "*":
         return (arg1 * baseNum * arg2 * baseNum) / baseNum ** 2;
-      case "÷":
+      case "/":
         return (arg1 * baseNum) / (arg2 * baseNum);
     }
   };
@@ -208,14 +208,14 @@ function Calculator() {
         </button>
         <button
           onClick={() => {
-            updateCalculation("×");
+            updateCalculation("*");
           }}
         >
           ×
         </button>
         <button
           onClick={() => {
-            updateCalculation("÷");
+            updateCalculation("/");
           }}
         >
           ÷
